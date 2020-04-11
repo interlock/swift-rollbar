@@ -16,8 +16,29 @@ class Client {
         self.accessToken = accessToken
         self.configuration = configuration
     }
-    func log(level: RollbarLevel, message: String?, exception: Error?, extraData: ExtraData?, context: String?) {
 
+    func log(level: RollbarLevel, message: String?, exception: Error?, extraData: ExtraData?, context: String?) {
+        
+    }
+
+    func debug(message: String?, exception: Error?, extraData: ExtraData?, context: String?) {
+        self.log(level: RollbarLevel.debug, message: message, exception: exception, extraData: extraData, context: context)
+    }
+
+    func info(message: String?, exception: Error?, extraData: ExtraData?, context: String?) {
+        self.log(level: RollbarLevel.info, message: message, exception: exception, extraData: extraData, context: context)
+    }
+
+    func warning(message: String?, exception: Error?, extraData: ExtraData?, context: String?) {
+        self.log(level: RollbarLevel.warning, message: message, exception: exception, extraData: extraData, context: context)
+    }
+
+    func error(message: String?, exception: Error?, extraData: ExtraData?, context: String?) {
+        self.log(level: RollbarLevel.error , message: message, exception: exception, extraData: extraData, context: context)
+    }
+
+    func critical(message: String?, exception: Error?, extraData: ExtraData?, context: String?) {
+        self.log(level: RollbarLevel.critical, message: message, exception: exception, extraData: extraData, context: context)
     }
 
     // func(payload: dict) bool
