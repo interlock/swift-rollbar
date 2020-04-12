@@ -1,10 +1,12 @@
+import Foundation
+import AnyCodable
 
-struct body {
+struct body: Codable {
     var access_token: String
     var data: bodyData
 }
 
-struct bodyData {
+struct bodyData: Codable {
     var environment: String = ""
     var title: String = ""
     var level: String = ""
@@ -14,17 +16,17 @@ struct bodyData {
     var code_version: String = ""
     var server: serverData
     var notifier: notifierData
-    var custom: [String: Any]?
+    var custom: [String: AnyCodable]?
     var person: personData?
 }
 
-struct serverData {
+struct serverData: Codable {
     var host: String = ""
     var root: String = ""
 }
 
-struct notifierData {
-    struct notifierDiagnosticData {
+struct notifierData: Codable {
+    struct notifierDiagnosticData: Codable {
         var languageVersion: String = "5.0-dev"
         var configuredOptions: String = ""
     }
@@ -33,7 +35,7 @@ struct notifierData {
     var diagnostic: notifierDiagnosticData
 }
 
-struct personData {
+struct personData: Codable {
     var id: String = ""
     var username: String = ""
     var email: String = ""
@@ -61,7 +63,9 @@ func BuildBody(configuration: Configuration, extraData: ExtraData?) -> body {
                 languageVersion: "5.0-dev",
                 configuredOptions: ""
             )
-        )
+        ),
+        custom: nil,
+        person: nil
     )
 
     let custom = BuildCustom(configuration: configuration, extraData: extraData)
@@ -87,7 +91,7 @@ func BuildBody(configuration: Configuration, extraData: ExtraData?) -> body {
     return _body
 }
 
-func BuildCustom(configuration: Configuration, extraData: ExtraData?) -> [String: Any]? {
+func BuildCustom(configuration: Configuration, extraData: ExtraData?) -> [String: AnyCodable]? {
     return nil
 }
 
