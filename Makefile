@@ -7,5 +7,5 @@ clean-generate-tests:
 generate-tests: clean-generate-tests
 	swift test --generate-linuxmain --enable-index-store --enable-test-discovery
 
-test: generate-tests
-	swift test
+test:
+	swift test --enable-test-discovery

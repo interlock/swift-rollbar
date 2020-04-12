@@ -43,7 +43,7 @@ class Client {
     }
 
     func setCheckIgnore(func: CheckIgnoreFunc) {
-
+        
     }
 
     func recordViewEventForLevel(level: RollbarLevel, element: String, extaData: ExtraData?) {
