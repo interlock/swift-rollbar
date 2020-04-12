@@ -7,6 +7,7 @@ enum RollbarLevel: String {
 }
 
 typealias ExtraData = [String: String]
+typealias CheckIgnoreFunc = (_ data: [String: Any]) -> Bool
 
 class Client {
     let accessToken: String
@@ -41,8 +42,7 @@ class Client {
         self.log(level: RollbarLevel.critical, message: message, exception: exception, extraData: extraData, context: context)
     }
 
-    // func(payload: dict) bool
-    func setCheckIgnore() {
+    func setCheckIgnore(func: CheckIgnoreFunc) {
 
     }
 
@@ -67,67 +67,6 @@ class Client {
     }
 
     func recordManualEvent(level: RollbarLevel, withData: ExtraData) {
-
-    }
-}
-
-enum CaptureIpType {
-    case captureIpFull
-    case captureIpAnonymize
-    case captureIpNone
-}
-
-struct Person {
-    var personId: String
-    var username: String
-    var email: String
-}
-
-struct ServerHost {
-    var host: String
-    var root: String
-    var branch: String
-    var codeVersion: String
-}
-
-class Configuration {
-    var environment: String 
-    var transmit: Bool = true
-    var logPayload: Bool = false
-    var captureIpType: CaptureIpType = CaptureIpType.captureIpNone
-    var maximumTelemetryData: Int8 = 10
-    var personId: Person?
-    var serverHost: ServerHost?
-
-    init(environment: String) {
-        self.environment = environment
-    }
-
-    func setPersonId(personId: Person) {
-        self.personId = personId
-    }
-
-    func setServerHost(serverHost: ServerHost) {
-        self.serverHost = serverHost
-    }
-
-    func setPayloadModificationBlock() {
-
-    }
-
-    func addScrubField(field: String) {
-
-    }
-
-    func removeScrubField(field: String) {
-
-    }
-
-    func setRequestId(requestId: String) {
-
-    }
-
-    func setCaptureLogAsTelemetryData(captureLogAsTelemetry: Bool) {
 
     }
 }

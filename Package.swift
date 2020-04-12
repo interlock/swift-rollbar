@@ -7,11 +7,12 @@ let package = Package(
         .library(name: "Rollbar", targets: ["Rollbar"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/swift-server/async-http-client.git", from: "1.0.0")
     ],
     targets: [
         .target(
             name: "Rollbar",
-            dependencies: []),
+            dependencies: ["AsyncHTTPClient"]),
         .testTarget(
             name: "RollbarTests",
             dependencies: ["Rollbar"]),
