@@ -1,16 +1,18 @@
+import AnyCodable
+
 protocol Transport {
-    // func Send()
-    // func Wait()
-    // func SetConfiguration()
+    init(_ configuration: Configuration)
+    func Send(_ body: body)
+    func Wait()
     // func SetLogger()
     // func SetRetryAttempts()
     // func SetPrintPayloadOnError()
 }
 
-class SyncTransport: Transport {
+// class SyncTransport: Transport {
 
-}
+// }  
 
-class AsyncTransport: Transport {
+// class AsyncTransport: Transport {
 
-}
+// }

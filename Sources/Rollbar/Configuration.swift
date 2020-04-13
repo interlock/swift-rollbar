@@ -44,9 +44,9 @@ class Configuration {
     var maximumTelemetryData: Int8 = 10
     var personId: Person?
     var serverHost: ServerHost?
-
     var scrubFields: [String] = []
-
+    var fingerprint: Bool = false
+    
     init(environment: String) {
         self.environment = environment
     }

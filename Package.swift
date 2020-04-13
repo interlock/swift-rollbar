@@ -9,8 +9,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/swift-server/async-http-client.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-nio.git", from: "2.0.0"),
-        .package(url: "https://github.com/Flight-School/AnyCodable", from: "0.2.3"
-    ),
+        .package(url: "https://github.com/Flight-School/AnyCodable", from: "0.2.3"),
     ],
     targets: [
         .target(

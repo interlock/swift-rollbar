@@ -10,10 +10,11 @@ struct bodyData: Codable {
     var environment: String = ""
     var title: String = ""
     var level: String = ""
-    var timestamp: Int = 0
+    var timestamp: Double = 0
     var platform: String = ""
     var language: String = "swift"
     var code_version: String = ""
+    var body: [String: AnyCodable]?
     var server: serverData
     var notifier: notifierData
     var custom: [String: AnyCodable]?
@@ -41,17 +42,21 @@ struct personData: Codable {
     var email: String = ""
 }
 
-func BuildBody(configuration: Configuration, extraData: ExtraData?) -> body {
+func BuildBody(configuration: Configuration,
+    level: RollbarLevel,
+    title: String,
+    extraData: ExtraData?) -> body {
 
-    let timestamp = 0; // TODO Unix UTC
+    let timestamp = NSDate().timeIntervalSince1970
     var data: bodyData = bodyData(
         environment: configuration.environment,
-        title: "", // TODO from params
-        level: "", // TODO from params
+        title: title,
+        level: level.rawValue,
         timestamp: timestamp,
         platform: configuration.serverHost?.platform ?? "",
         language: "swift",
         code_version: configuration.serverHost?.codeVersion ?? "",
+        body: [:],
         server: serverData(
             host: configuration.serverHost?.host ?? "",
             root: configuration.serverHost?.root ?? ""

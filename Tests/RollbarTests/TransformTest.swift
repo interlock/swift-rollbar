@@ -9,7 +9,7 @@ class TransformTest: XCTestCase {
     }
 
     func testBuildBody() {
-        let body = BuildBody(configuration: configuration, extraData: nil)
+        let body = BuildBody(configuration: configuration, level: RollbarLevel.info, title: "hi", extraData: nil)
 
         XCTAssertEqual(body.data.environment, configuration.environment)
     }
