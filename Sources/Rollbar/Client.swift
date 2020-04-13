@@ -12,7 +12,7 @@ enum RollbarLevel: String {
 typealias ExtraData = [String: String]
 typealias CheckIgnoreFunc = (_ data: [String: Any]) -> Bool
 
-let DEFAULT_URL = "https://asdf"
+let DEFAULT_URL = "https://api.rollbar.com/api/1/item/"
 
 class Client {
     let accessToken: String
