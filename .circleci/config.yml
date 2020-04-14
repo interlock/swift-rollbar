@@ -3,16 +3,19 @@
 
 version: 2.1
 
+jobs:
+  test:
+    docker:
+      - image: "swift:<< matrix.version >>"
+
+    steps:
+      - checkout
+      - run: make test_all
+
 workflows:
   workflow:
     jobs:
-      - build:
+      - test:
         matrix:
           parameters:
-            docker_image: ["5.0-bionic", "5.1-bionic", "5.2-bionic"]
-        docker:
-          - image: "swift:<< matrix.version >>"
-
-        steps:
-          - checkout
-          - run: make test_all
+            version: ["5.0-bionic", "5.1-bionic", "5.2-bionic"]
