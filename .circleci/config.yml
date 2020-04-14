@@ -6,7 +6,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: "swift:<< matrix.version >>"
+      - image: "swift:<< version >>"
 
     steps:
       - checkout
