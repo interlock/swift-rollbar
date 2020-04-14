@@ -5,14 +5,20 @@ version: 2.1
 
 jobs:
   test:
+    parameters:
+      version:
+        type: string
+        default: "latest"
+
     docker:
-      - image: "swift:<< version >>"
+      - image: "swift:<< pipeline.parameters.version >>"
 
     steps:
       - checkout
       - run: make test_all
 
 workflows:
+  version: 2
   workflow:
     jobs:
       - test:
