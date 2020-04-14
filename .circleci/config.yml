@@ -3,11 +3,16 @@
 
 version: 2.1
 
-jobs:
-  build:
-    macos:
-      xcode: 11.0.0 # Specify the Xcode version to use
+workflows:
+  workflow:
+    jobs:
+      - build:
+        matrix:
+          parameters:
+            docker_image: ["5.0-bionic", "5.1-bionic", "5.2-bionic"]
+        docker:
+          - image: "swift:<< matrix.version >>"
 
-    steps:
-      - checkout
-      - run: make test_all
+        steps:
+          - checkout
+          - run: make test_all
