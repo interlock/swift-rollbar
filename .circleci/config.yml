@@ -3,24 +3,25 @@
 
 version: 2.1
 
-jobs:
-  test:
-    parameters:
-      version:
-        type: string
-        default: "latest"
-
-    docker:
-      - image: "swift:<< parameters.version >>"
-
-    steps:
-      - checkout
-      - run: make test_all
-
 workflows:
+  version: 2
   test:
     jobs:
       - test:
         matrix:
           parameters:
-            version: ["5.0-bionic", "5.1-bionic", "5.2-bionic"]
+            docker_tag: ["5.0-bionic", "5.1-bionic", "5.2-bionic"]
+
+jobs:
+  test:
+    parameters:
+      docker_tag:
+        type: string
+        default: "latest"
+
+    docker:
+      - image: "swift:<< parameters.docker_tag >>"
+
+    steps:
+      - checkout
+      - run: make test_all
