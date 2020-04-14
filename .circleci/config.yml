@@ -11,15 +11,14 @@ jobs:
         default: "latest"
 
     docker:
-      - image: "swift:<< pipeline.parameters.version >>"
+      - image: "swift:<< parameters.version >>"
 
     steps:
       - checkout
       - run: make test_all
 
 workflows:
-  version: 2
-  workflow:
+  test:
     jobs:
       - test:
         matrix:
