@@ -1,7 +1,7 @@
 import AsyncHTTPClient
 import NIO
 
-enum RollbarLevel: String {
+public enum RollbarLevel: String {
     case debug = "debug"
     case info = "info"
     case warning = "warning"
@@ -9,12 +9,12 @@ enum RollbarLevel: String {
     case critical = "critical"
 }
 
-typealias ExtraData = [String: String]
+public typealias ExtraData = [String: String]
 typealias CheckIgnoreFunc = (_ data: [String: Any]) -> Bool
 
 let DEFAULT_URL = "https://api.rollbar.com/api/1/item/"
 
-class Client {
+public class Client {
     let accessToken: String
     let url: String
     var configuration: Configuration
@@ -22,7 +22,7 @@ class Client {
     var eventLoopGroup: EventLoopGroup
     var transport: Transport
 
-    init(accessToken: String, configuration: Configuration, eventLoopGroup: EventLoopGroup, transportType: Transport.Type) {
+    public init(accessToken: String, configuration: Configuration, eventLoopGroup: EventLoopGroup, transportType: Transport.Type) {
         self.accessToken = accessToken
         self.url = DEFAULT_URL
         self.configuration = configuration
@@ -31,7 +31,7 @@ class Client {
         self.transport = transportType.init(configuration)
     }
 
-    init(accessToken: String, url: String, configuration: Configuration, eventLoopGroup: EventLoopGroup, transportType: Transport.Type) {
+    public init(accessToken: String, url: String, configuration: Configuration, eventLoopGroup: EventLoopGroup, transportType: Transport.Type) {
         self.accessToken = accessToken
         self.url = url
         self.configuration = configuration
@@ -40,7 +40,7 @@ class Client {
         self.transport = transportType.init(configuration)
     }
 
-    func log(level: RollbarLevel, message: String? = nil, exception: Error? = nil, extraData: ExtraData? = nil, context: String? = nil) {
+    public func log(level: RollbarLevel, message: String? = nil, exception: Error? = nil, extraData: ExtraData? = nil, context: String? = nil) {
         let body = BuildBody(
             configuration: self.configuration,
             level: level,
@@ -54,26 +54,26 @@ class Client {
         if self.configuration.fingerprint == true {
             //body.data.fingerprint = ""
         }
-        self.transport.Send(body)
+        self.transport.Send(self, body)
     }
 
-    func debug(message: String?, exception: Error?, extraData: ExtraData?, context: String?) {
+    public func debug(message: String? = nil, exception: Error? = nil, extraData: ExtraData? = nil, context: String? = nil) {
         self.log(level: RollbarLevel.debug, message: message, exception: exception, extraData: extraData, context: context)
     }
 
-    func info(message: String?, exception: Error?, extraData: ExtraData?, context: String?) {
+    public func info(message: String? = nil, exception: Error? = nil, extraData: ExtraData? = nil, context: String? = nil) {
         self.log(level: RollbarLevel.info, message: message, exception: exception, extraData: extraData, context: context)
     }
 
-    func warning(message: String?, exception: Error?, extraData: ExtraData?, context: String?) {
+    public func warning(message: String? = nil, exception: Error? = nil, extraData: ExtraData? = nil, context: String? = nil) {
         self.log(level: RollbarLevel.warning, message: message, exception: exception, extraData: extraData, context: context)
     }
 
-    func error(message: String?, exception: Error?, extraData: ExtraData?, context: String?) {
-        self.log(level: RollbarLevel.error , message: message, exception: exception, extraData: extraData, context: context)
+    public func error(message: String? = nil, exception: Error? = nil, extraData: ExtraData? = nil, context: String? = nil) {
+        self.log(level: RollbarLevel.error, message: message, exception: exception, extraData: extraData, context: context)
     }
 
-    func critical(message: String?, exception: Error?, extraData: ExtraData?, context: String?) {
+    public func critical(message: String? = nil, exception: Error? = nil, extraData: ExtraData? = nil, context: String? = nil) {
         self.log(level: RollbarLevel.critical, message: message, exception: exception, extraData: extraData, context: context)
     }
 
@@ -105,7 +105,8 @@ class Client {
 
     }
 
-    func shutdown() throws {
+    public func shutdown() throws {
         try self.httpClient.syncShutdown()
+        try self.eventLoopGroup.syncShutdownGracefully()
     }
 }

@@ -5,6 +5,7 @@ let package = Package(
     name: "Rollbar",
     products: [
         .library(name: "Rollbar", targets: ["Rollbar"]),
+        .executable(name: "Example", targets: ["Example"])
     ],
     dependencies: [
         .package(url: "https://github.com/swift-server/async-http-client.git", from: "1.0.0"),
@@ -14,9 +15,15 @@ let package = Package(
     targets: [
         .target(
             name: "Rollbar",
-            dependencies: ["AsyncHTTPClient", "NIO", "NIOHTTP1", "AnyCodable"]),
+            dependencies: ["AsyncHTTPClient", "NIO", "NIOHTTP1", "AnyCodable"]
+        ),
+        .target(
+            name: "Example",
+            dependencies: ["Rollbar"]
+        ),
         .testTarget(
             name: "RollbarTests",
-            dependencies: ["Rollbar"]),
+            dependencies: ["Rollbar"]
+        ),
     ]
 )

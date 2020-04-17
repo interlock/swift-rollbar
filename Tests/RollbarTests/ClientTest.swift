@@ -36,7 +36,9 @@ class ClientTest: XCTestCase {
     }
 
     func testLog() {
-        
+        enum SampleError: Error {
+            case bad
+        }
         let client = Client(
             accessToken: "abc",
             configuration: self.configuration,
@@ -47,7 +49,13 @@ class ClientTest: XCTestCase {
             XCTAssertNoThrow(try client.shutdown())
         }
 
-        client.log(level: RollbarLevel.info, message: "hello")
+        do {
+            throw SampleError.bad
+        } catch {
+            print("error thing: \(error)")
+            Thread.callStackSymbols.forEach{print($0)}
+            client.log(level: RollbarLevel.info, message: "hello", exception: error)
+        }
 
         let transport = client.transport as? TransportMock
         let body = transport?.sent[0]

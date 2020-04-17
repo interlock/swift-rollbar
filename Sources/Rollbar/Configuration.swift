@@ -1,16 +1,16 @@
 
-enum CaptureIpType {
+public enum CaptureIpType {
     case captureIpFull
     case captureIpAnonymize
     case captureIpNone
 }
 
-struct Person: Equatable {
+public struct Person: Equatable {
     var personId: String = ""
     var username: String = ""
     var email: String = ""
 
-    static func == (lhs: Person, rhs: Person) -> Bool {
+    static public func == (lhs: Person, rhs: Person) -> Bool {
         return
             lhs.personId == rhs.personId &&
             lhs.username == rhs.username &&
@@ -18,14 +18,14 @@ struct Person: Equatable {
     }
 }
 
-struct ServerHost: Equatable {
+public struct ServerHost: Equatable {
     var host: String = ""
     var root: String = ""
     var branch: String = ""
     var codeVersion: String = ""
     var platform: String = ""
 
-    static func == (lhs: ServerHost, rhs: ServerHost) -> Bool {
+    static public func == (lhs: ServerHost, rhs: ServerHost) -> Bool {
         return
             lhs.host == rhs.host &&
             lhs.root == rhs.root &&
@@ -35,7 +35,7 @@ struct ServerHost: Equatable {
     }
 }
 
-class Configuration {
+public class Configuration {
     var environment: String = ""
     var accessToken: String = ""
     var transmit: Bool = true
@@ -47,7 +47,7 @@ class Configuration {
     var scrubFields: [String] = []
     var fingerprint: Bool = false
     
-    init(environment: String) {
+    public init(environment: String) {
         self.environment = environment
     }
 

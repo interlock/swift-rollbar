@@ -9,7 +9,7 @@ class TransportMock: Transport {
         self.configuration = configuration
     }
 
-    func Send(_ body: body) {
+    func Send(_ client: Client, _ body: body) {
         self.sent.append(body)
     }
 

@@ -1,12 +1,12 @@
 import Foundation
 import AnyCodable
 
-struct body: Codable {
+public struct body: Codable {
     var access_token: String
     var data: bodyData
 }
 
-struct bodyData: Codable {
+public struct bodyData: Codable {
     var environment: String = ""
     var title: String = ""
     var level: String = ""
@@ -21,13 +21,13 @@ struct bodyData: Codable {
     var person: personData?
 }
 
-struct serverData: Codable {
+public struct serverData: Codable {
     var host: String = ""
     var root: String = ""
 }
 
-struct notifierData: Codable {
-    struct notifierDiagnosticData: Codable {
+public struct notifierData: Codable {
+    public struct notifierDiagnosticData: Codable {
         var languageVersion: String = "5.0-dev"
         var configuredOptions: String = ""
     }
@@ -36,7 +36,7 @@ struct notifierData: Codable {
     var diagnostic: notifierDiagnosticData
 }
 
-struct personData: Codable {
+public struct personData: Codable {
     var id: String = ""
     var username: String = ""
     var email: String = ""
