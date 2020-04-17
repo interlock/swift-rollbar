@@ -1,0 +1,29 @@
+# For a detailed guide to building and testing on iOS, read the docs:
+# https://circleci.com/docs/2.0/testing-ios/
+
+version: 2.1
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test:
+        name: "test_<< matrix.docker_tag >>"
+        docker_tag: << matrix.docker_tag >>
+        matrix:
+          parameters:
+            docker_tag: ["5.0-bionic", "5.1-bionic", "5.2-bionic"]
+
+jobs:
+  test:
+    parameters:
+      docker_tag:
+        type: string
+        default: "latest"
+
+    docker:
+      - image: "swift:<< parameters.docker_tag >>"
+
+    steps:
+      - checkout
+      - run: make test_all
